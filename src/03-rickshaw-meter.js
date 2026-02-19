@@ -1,4 +1,4 @@
-/**
+ /**
  * 🛺 Auto Rickshaw Fare Calculator - Number & Math
  *
  * Bhaiyya ji ka auto rickshaw hai. Meter se fare calculate hota hai.
@@ -51,21 +51,60 @@
  *   findCheapestAndCostliest(150, 80, 200) // => { cheapest: 80, costliest: 200 }
  */
 export function parseFare(fareString) {
-  // Your code here
+  if (typeof fareString !== "string") return -1;
+
+  const validFare = parseFloat(fareString);
+  if (isNaN(validFare)) return -1;
+
+  return validFare;
+
 }
 
 export function roundFare(amount, decimalPlaces) {
-  // Your code here
+  if (
+    typeof amount !== "number" ||
+    !Number.isInteger(decimalPlaces) ||
+    decimalPlaces < 0
+  ) {
+    return "";
+  }
+
+  return amount.toFixed(decimalPlaces);
+
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
-  // Your code here
+  
+  if (typeof baseFare !== "number" || baseFare < 0) return 0;
+  if (typeof surgeMultiplier !== "number" || surgeMultiplier < 0) return 0;
+
+  const totalFare = baseFare * surgeMultiplier;
+  
+  return Math.ceil(totalFare);
+
 }
 
 export function findCheapestAndCostliest(...fares) {
-  // Your code here
+  const validFares = fares.filter(
+    fare => typeof fare === "number" && !Number.isNaN(fare)
+  );
+
+  if (validFares.length === 0) {
+    return null;
+  }
+
+   const cheapest = Math.min(...validFares);
+  const costliest = Math.max(...validFares);
+
+   return { cheapest, costliest };
+
 }
 
 export function getDistanceDifference(from, to) {
-  // Your code here
+  const fromKm = parseInt(from);
+  const toKm = parseInt(to);
+  if (Number.isNaN(fromKm) || Number.isNaN(toKm)) return -1
+  
+  return Math.abs(fromKm - toKm);
+
 }
